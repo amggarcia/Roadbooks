@@ -1,12 +1,8 @@
 import mongoose, {Schema,Model,Document} from 'mongoose';
-import Question from './Question';
-
-export interface IQuestionType extends Document{
-    Name : string;
-}
+import IQuestionType from '@sharedTypes/IQuestionType';
 
 const QuestionTypeSchema = new Schema({
     Name : {type : String, required : true, unique : true}
 });
 
-export default mongoose.model<IQuestionType>('QuestionType',QuestionTypeSchema);
+export default mongoose.model<IQuestionType & Document>('QuestionType',QuestionTypeSchema);

@@ -8,5 +8,7 @@ router.get('/',controller.getAllQuestionTypes);
 router.get('/:id',controller.getQuestionTypeByID);
 router.get('/byName/:name',controller.getQuestionTypesByName);
 router.put('/',controller.updateQuestionType);
-router.delete('/',controller.deleteQuestionType);
+router.delete('/:id',controller.deleteQuestionType);
 router.post('/',controller.createQuestionType);
+
+export default router;

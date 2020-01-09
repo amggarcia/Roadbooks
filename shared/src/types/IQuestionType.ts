@@ -1,4 +1,4 @@
-export interface IQuestionType{
-    ID : string;
+export default interface IQuestionType{
+    _id : string;
     Name : string;
 }

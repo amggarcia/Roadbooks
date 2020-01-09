@@ -1,9 +1,9 @@
-import {IRoadBook} from './IRoadBook';
-import {IQuestionType} from './IQuestionType';
+import IRoadBook from './IRoadBook';
+import IQuestionType from './IQuestionType';
 
-export interface IQuestion{
-    ID : string;
-    RoadBook : IRoadBook;
-    Type : IQuestionType;
+export default interface IQuestion{
+    _id : string;
+    RoadBook : IRoadBook["_id"];
+    Type : IQuestionType["_id"];
     Text : string;
 }

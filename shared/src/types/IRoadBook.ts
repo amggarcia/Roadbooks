@@ -1,5 +1,5 @@
-export interface IRoadBook{
-        ID : string;
+export default interface IRoadBook{
+        _id : string;
         Name  : string;
         Description : string;
 }

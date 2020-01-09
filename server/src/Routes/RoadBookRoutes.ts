@@ -7,7 +7,7 @@ const controller : RoadBookController =  new RoadBookController();
 router.get("/",controller.getRoadBooks);
 router.post("/",controller.createRoadBook);
 router.get("/:id", controller.getRoadBookByID);
-router.put("/:id", controller.updateRoadBook);
+router.put("/", controller.updateRoadBook);
 router.delete("/:id",controller.deleteRoadBook);
 
 export default router;
