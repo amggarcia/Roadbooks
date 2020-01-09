@@ -2,7 +2,6 @@ import {Request,Response} from 'express';
 import IQuestion from '@sharedTypes/IQuestion';
 import model from '../Models/Question';
 import { genericHandleResult, validateNullOrEmptyParam } from './CommonController';
-import { exec } from 'child_process';
 
 class QuestionController{
 
