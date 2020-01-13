@@ -5,7 +5,7 @@ import NavBar from './Layout/NavBar';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import RoadBookManager from './RoadBookManager/RoadBookManager';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
-import {CssBaseline}  from '@material-ui/core';
+import { CssBaseline } from '@material-ui/core';
 
 const App: React.FC = () => {
 
@@ -34,16 +34,16 @@ const App: React.FC = () => {
 
   return (
     <Router>
-        <div className="App">
+      <div className="App">
         <ThemeProvider theme={darkTheme}>
-          <CssBaseline/ >
+          <CssBaseline />
           <NavBar />
           <div style={{ paddingTop: 64 }}>
             <Route exact path="/" render={() => <div>{cenas}</div>}></Route>
             <Route path="/RoadBookManager" render={() => <RoadBookManager />}></Route>
           </div>
         </ThemeProvider>
-        </div>
+      </div>
     </Router>
 
   );

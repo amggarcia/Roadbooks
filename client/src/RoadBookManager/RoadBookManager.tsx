@@ -2,6 +2,8 @@ import React from 'react';
 import { Toolbar, Button, InputBase, Grid } from '@material-ui/core';
 import { makeStyles, Theme, createStyles, fade } from '@material-ui/core/styles';
 import RoadBookCardList from './RoadBookCardList';
+import { Route } from 'react-router-dom';
+import RoadBookEditor from './RoadBookEditor';
 
 export default function RoadBookManager() {
     const classes = useStyles();
@@ -24,8 +26,8 @@ export default function RoadBookManager() {
                     </Grid>
                 </Grid>
             </Toolbar>
-            <RoadBookCardList></RoadBookCardList>
-
+            <Route exact path="/RoadBookManager" render={() => <RoadBookCardList />}></Route>
+            <Route exact path="/RoadBookManager/Edit/:objectId" render={() => <RoadBookEditor />}></Route>
         </div >
     )
 }
@@ -35,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     searchBar: { width: '100%', backgroundColor: fade(theme.palette.common.white, 0.15), paddingLeft: 10 },
 }));
 
-//Another way to theme Components can be used to make an "extension" of Button component and then used instead of Button where needed
+        //Another way to theme Components can be used to make an "extension" of Button component and then used instead of Button where needed
 // const ToolBarButton = withStyles({
 //     root: {marginRight : 10},
 // })(Button);

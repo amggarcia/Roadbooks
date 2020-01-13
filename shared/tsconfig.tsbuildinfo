@@ -134,16 +134,16 @@
         "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
       },
       "./src/types/iroadbook.ts": {
-        "version": "904ee92a9078a567fbae8a74449914ef3a9ebd794cd9a612e43d175f49f30232",
-        "signature": "2d7030aaf958063ad6c3c41602fd581b02f57f7e3b6b65346179fb39a718c080"
+        "version": "d5dcfbbd081b298195bea7c6768535b13b06ee63e8fdf88f37d1b06773a408bb",
+        "signature": "49c9242e479922fdbcdf84a773e2eeda179ebeef8afcae31639a3be87b82c15a"
       },
       "./src/types/iquestiontype.ts": {
         "version": "21af25e06dcea72fc94966463cfd8ba4c31f2616fecbcf24d558297f16c8eb11",
         "signature": "ffd443d75c961fcea17a0fabaf3ad3b3236a00a1d192ee96717d25e7c225901a"
       },
       "./src/types/iquestion.ts": {
-        "version": "b0baa9c860400a7be9c92c83414276dfd33979e2e524d584aece24671e5f6f33",
-        "signature": "ddf046c9b160682a6a99cfc474c5fd975e722e5a25f594763c8a800dd7eef380"
+        "version": "adbb13160d158a707ff40f436609285495c8ab15ad185ca55a0e317a4eb672a4",
+        "signature": "067b63f2f6744f4a2bfec104bd25f13d99f234e6e6520b0862afc19011923573"
       },
       "./node_modules/@types/node/globals.d.ts": {
         "version": "9a52fe500e1e0ed7362ae65094ec6d4f655033d21f873886211e252fc9c5b9c8",
@@ -1651,7 +1651,7 @@
       "./node_modules/typescript/lib/lib.esnext.intl.d.ts",
       "./node_modules/typescript/lib/lib.esnext.bigint.d.ts",
       "./src/app.ts",
-      "./src/types/iroadbook.ts",
+      "./src/types/iquestiontype.ts",
       "./node_modules/@types/node/globals.d.ts",
       "./node_modules/@types/node/assert.d.ts",
       "./node_modules/@types/node/async_hooks.d.ts",
@@ -1704,20 +1704,8 @@
       "./node_modules/@types/mime/index.d.ts",
       "./node_modules/@types/serve-static/index.d.ts",
       "./node_modules/@types/express/index.d.ts",
-      "./src/types/iquestiontype.ts",
-      [
-        "./src/types/iquestion.ts",
-        [
-          {
-            "file": "./src/types/iquestion.ts",
-            "start": 48,
-            "length": 13,
-            "messageText": "Module '\"../../../../../../../../Users/User01/source/repos/RoadBooks/shared/src/types/IQuestionType\"' has no exported member 'IQuestionType'. Did you mean to use 'import IQuestionType from \"../../../../../../../../Users/User01/source/repos/RoadBooks/shared/src/types/IQuestionType\"' instead?",
-            "category": 1,
-            "code": 2614
-          }
-        ]
-      ]
+      "./src/types/iroadbook.ts",
+      "./src/types/iquestion.ts"
     ]
   },
   "version": "3.7.4"
