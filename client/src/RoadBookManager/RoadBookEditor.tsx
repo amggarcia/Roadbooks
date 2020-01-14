@@ -1,18 +1,21 @@
-import React, { useState, useReducer, useEffect } from 'react';
+import React, { useReducer, useEffect, FormEvent } from 'react';
 import { IRoadBook } from '../../../shared/src/types/IRoadBook';
-import { Grid, TextField, Button } from '@material-ui/core';
-import { useParams } from 'react-router-dom';
+import { Grid, TextField, Button, makeStyles, createStyles, Theme } from '@material-ui/core';
+import { useParams, Link, useHistory } from 'react-router-dom';
 
-interface RoadBookEditorProps {
-    RoadBook: IRoadBook
-}
 type State = {
     RoadBook: IRoadBook | any;
+    IsEdit: boolean;
 }
 type Action = {
     type: string,
     payload: string | IRoadBook
 }
+
+interface RoadBookEditorProps {
+    IsEdit: boolean;
+}
+
 function reducer(state: State, action: Action): State {
     switch (action.type) {
         case ('changeName'):
@@ -26,12 +29,14 @@ function reducer(state: State, action: Action): State {
     }
 }
 
-export default function RoadBookEditor() {
+export default function RoadBookEditor(props: RoadBookEditorProps) {
+    const classes = useStyles();
     const { objectId } = useParams();
-    const [state, dispatch] = useReducer(reducer, { RoadBook: {} });
+    const history = useHistory();
+    const [state, dispatch] = useReducer(reducer, { RoadBook: { _id: '', Name: '', Description: '' }, IsEdit: props.IsEdit });
 
     useEffect(() => {
-        if (objectId) {
+        if (objectId && !state.IsEdit) {
             fetch("http://localhost:4000/RoadBook/" + objectId)
                 .then(res => res.json())
                 .then(json => {
@@ -40,17 +45,48 @@ export default function RoadBookEditor() {
         }
     }, []);
 
-
+    function handleSubmit(event: FormEvent): void {
+        event.preventDefault();
+        var method: string = state.IsEdit ? 'POST' : 'PUT';
+        fetch('http://localhost:4000/RoadBook',
+            {
+                method: method, body: JSON.stringify(state.RoadBook),
+                headers: { 'Content-Type': 'application/json' }
+            })
+            .then(res => res.json)
+            .then(response => {
+                console.log("potaters");
+                history.push('/RoadBookManager');
+            })
+            .catch(error => console.log('ERROR'));
+    }
 
     return (
-        <Grid container>
-            <Grid item xs={12}>
-                <TextField id="roadBookName" label="Name" onChange={(e) => dispatch({ type: 'changeName', payload: e.target.value })} value={state.RoadBook.Name} />
+        <form onSubmit={handleSubmit}>
+            <Grid container>
+
+                <Grid item xs={12}>
+                    <TextField variant="filled" className={classes.filledInput} id="roadBookName"
+                        label="Name" onChange={(e) => dispatch({ type: 'changeName', payload: e.target.value })}
+                        value={state.RoadBook.Name} />
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField variant="filled" className={classes.filledInput} id="roadBookDescription"
+                        label="Description" onChange={(e) => dispatch({ type: 'changeDescription', payload: e.target.value })}
+                        value={state.RoadBook.Description} />
+                </Grid>
+                <Grid item xs={12}>
+                    <div style={{ float: 'right' }}>
+                        <Button variant="contained" type="submit" className={classes.paddedButton} color="primary">Save Changes</Button>
+                        <Button component={Link} to="/RoadBookManager" className={classes.paddedButton} variant="contained" color="default" >Cancel</Button>
+                    </div>
+                </Grid>
             </Grid>
-            <Grid item xs={12}>
-                <TextField id="roadBookDescription" label="Description" onChange={(e) => dispatch({ type: 'changeDescription', payload: e.target.value })} value={state.RoadBook.Description} />
-            </Grid>
-            <Button onClick={() => { console.log(state.RoadBook) }}></Button>
-        </Grid>
+        </form>
     )
 }
+
+const useStyles = makeStyles((theme: Theme) => createStyles({
+    filledInput: { margin: theme.spacing(2), width: '80%' },
+    paddedButton: { marginRight: theme.spacing() },
+}));

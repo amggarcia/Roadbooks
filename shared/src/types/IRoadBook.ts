@@ -3,3 +3,7 @@ export interface IRoadBook {
         Name: string;
         Description: string;
 }
+
+export function GetNewRoadBook(): IRoadBook {
+        return { _id: '', Name: '', Description: '' } as IRoadBook;
+}
