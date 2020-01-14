@@ -1,5 +1,5 @@
 export interface IRoadBook {
-        _id: string;
+        _id?: string;
         Name: string;
         Description: string;
 }

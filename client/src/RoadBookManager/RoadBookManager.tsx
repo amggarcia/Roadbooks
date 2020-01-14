@@ -8,7 +8,8 @@ export default function RoadBookManager() {
     return (
         <div>
             <Route exact path="/RoadBookManager" render={() => <RoadBookCardList />}></Route>
-            <Route exact path="/RoadBookManager/Edit/:objectId" render={(props) => <RoadBookEditor IsEdit={false} />}></Route>
+            <Route exact path="/RoadBookManager/Edit/:objectId" render={(props) => <RoadBookEditor IsEdit={true} />}></Route>
+            <Route exact path="/RoadBookManager/Create" render={(props) => <RoadBookEditor IsEdit={false} />}></Route>
         </div >
     )
 }

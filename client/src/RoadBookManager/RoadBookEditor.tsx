@@ -33,10 +33,13 @@ export default function RoadBookEditor(props: RoadBookEditorProps) {
     const classes = useStyles();
     const { objectId } = useParams();
     const history = useHistory();
-    const [state, dispatch] = useReducer(reducer, { RoadBook: { _id: '', Name: '', Description: '' }, IsEdit: props.IsEdit });
+    const [state, dispatch] = useReducer(reducer, { RoadBook: { Name: '', Description: '' }, IsEdit: props.IsEdit });
 
     useEffect(() => {
-        if (objectId && !state.IsEdit) {
+        console.log(objectId);
+        console.log(state.IsEdit);
+        if (objectId && state.IsEdit) {
+            console.log('fetching');
             fetch("http://localhost:4000/RoadBook/" + objectId)
                 .then(res => res.json())
                 .then(json => {
@@ -47,15 +50,15 @@ export default function RoadBookEditor(props: RoadBookEditorProps) {
 
     function handleSubmit(event: FormEvent): void {
         event.preventDefault();
-        var method: string = state.IsEdit ? 'POST' : 'PUT';
+        console.log(JSON.stringify(state.RoadBook));
+        var method: string = state.IsEdit ? 'PUT' : 'POST';
         fetch('http://localhost:4000/RoadBook',
             {
                 method: method, body: JSON.stringify(state.RoadBook),
                 headers: { 'Content-Type': 'application/json' }
             })
-            .then(res => res.json)
+            .then(res => res.json())
             .then(response => {
-                console.log("potaters");
                 history.push('/RoadBookManager');
             })
             .catch(error => console.log('ERROR'));
@@ -64,7 +67,6 @@ export default function RoadBookEditor(props: RoadBookEditorProps) {
     return (
         <form onSubmit={handleSubmit}>
             <Grid container>
-
                 <Grid item xs={12}>
                     <TextField variant="filled" className={classes.filledInput} id="roadBookName"
                         label="Name" onChange={(e) => dispatch({ type: 'changeName', payload: e.target.value })}
