@@ -1,7 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 import IQuestion from '@sharedTypes/IQuestion';
 import model from '../Models/Question';
+import questionImageModel from '../Models/QuestionImage';
 import { genericHandleResult, validateNullOrEmptyParam } from './CommonController';
+import IQuestionImage from '@sharedTypes/IQuestionImage';
 
 class QuestionController {
 
@@ -27,7 +29,7 @@ class QuestionController {
     public updateQuestion = function (req: Request, res: Response, next: NextFunction) {
         var question: IQuestion = req.body;
         model.findOneAndUpdate({ _id: question._id }, question, { new: true }).exec
-            ((error: Error, question: IQuestion) => genericHandleResult(error, question, req, res, next));
+            ((error: Error, question: IQuestion) => { genericHandleResult(error, question, req, res, next) });
     }
     public deleteQuestion = function (req: Request, res: Response, next: NextFunction) {
         var isInvalidParam = validateNullOrEmptyParam("id", req);
@@ -44,7 +46,15 @@ class QuestionController {
 
     public createQuestion = function (req: Request, res: Response, next: NextFunction) {
         var question: IQuestion = req.body;
-        model.create(question, (error: Error, question: IQuestion) => genericHandleResult(error, question, req, res, next));
+        model.create(question, (error: Error, question: IQuestion) => {
+            if (error)
+                genericHandleResult(error, question, req, res, next);
+            else {
+                question.Images.forEach(x => x.Question = question._id);
+                questionImageModel.insertMany(question.Images,
+                    (error: Error, questionImages: IQuestionImage[]) => genericHandleResult(error, question, req, res, next));
+            }
+        });
     }
 }
 

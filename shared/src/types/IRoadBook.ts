@@ -1,7 +1,10 @@
+import IQuestion from "./IQuestion";
+
 export interface IRoadBook {
         _id?: string;
         Name: string;
         Description: string;
+        Questions: IQuestion[];
 }
 
 export function GetNewRoadBook(): IRoadBook {

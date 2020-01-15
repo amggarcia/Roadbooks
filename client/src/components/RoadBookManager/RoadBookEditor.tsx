@@ -1,13 +1,14 @@
-import React, { useReducer, useEffect, FormEvent } from 'react';
+import React, { useReducer, useEffect, FormEvent, useState, createContext } from 'react';
 import { IRoadBook } from '../../../../shared/src/types/IRoadBook';
 import { Grid, TextField, Button, makeStyles, createStyles, Theme } from '@material-ui/core';
 import { useParams, Link, useHistory } from 'react-router-dom';
+import QuestionList from 'components/Question/Edit/QuestionList';
 
 type State = {
     RoadBook: IRoadBook | any;
     IsEdit: boolean;
 }
-type Action = {
+export type Action = {
     type: string,
     payload: string | IRoadBook
 }
@@ -15,6 +16,8 @@ type Action = {
 interface RoadBookEditorProps {
     IsEdit: boolean;
 }
+
+export const RoadBookEditorContext = createContext<{ editorState: State, dispatch: (action: Action) => void }>({ editorState: {} as State, dispatch: () => { } });
 
 function reducer(state: State, action: Action): State {
     switch (action.type) {
@@ -36,10 +39,7 @@ export default function RoadBookEditor(props: RoadBookEditorProps) {
     const [state, dispatch] = useReducer(reducer, { RoadBook: { Name: '', Description: '' }, IsEdit: props.IsEdit });
 
     useEffect(() => {
-        console.log(objectId);
-        console.log(state.IsEdit);
         if (objectId && state.IsEdit) {
-            console.log('fetching');
             fetch("http://localhost:4000/RoadBook/" + objectId)
                 .then(res => res.json())
                 .then(json => {
@@ -50,7 +50,6 @@ export default function RoadBookEditor(props: RoadBookEditorProps) {
 
     function handleSubmit(event: FormEvent): void {
         event.preventDefault();
-        console.log(JSON.stringify(state.RoadBook));
         var method: string = state.IsEdit ? 'PUT' : 'POST';
         fetch('http://localhost:4000/RoadBook',
             {
@@ -65,26 +64,29 @@ export default function RoadBookEditor(props: RoadBookEditorProps) {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <Grid container>
-                <Grid item xs={12}>
-                    <TextField variant="filled" className={classes.filledInput} id="roadBookName"
-                        label="Name" onChange={(e) => dispatch({ type: 'changeName', payload: e.target.value })}
-                        value={state.RoadBook.Name} />
+        <RoadBookEditorContext.Provider value={{ editorState: state, dispatch }}>
+            <form onSubmit={handleSubmit}>
+                <Grid container>
+                    <Grid item xs={12}>
+                        <TextField variant="filled" className={classes.filledInput} id="roadBookName"
+                            label="Name" onChange={(e) => dispatch({ type: 'changeName', payload: e.target.value })}
+                            value={state.RoadBook.Name} />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField variant="filled" className={classes.filledInput} id="roadBookDescription"
+                            label="Description" onChange={(e) => dispatch({ type: 'changeDescription', payload: e.target.value })}
+                            value={state.RoadBook.Description} />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <div style={{ float: 'right' }}>
+                            <Button variant="contained" type="submit" className={classes.paddedButton} color="primary">Save Changes</Button>
+                            <Button component={Link} to="/RoadBookManager" className={classes.paddedButton} variant="contained" color="default" >Cancel</Button>
+                        </div>
+                    </Grid>
                 </Grid>
-                <Grid item xs={12}>
-                    <TextField variant="filled" className={classes.filledInput} id="roadBookDescription"
-                        label="Description" onChange={(e) => dispatch({ type: 'changeDescription', payload: e.target.value })}
-                        value={state.RoadBook.Description} />
-                </Grid>
-                <Grid item xs={12}>
-                    <div style={{ float: 'right' }}>
-                        <Button variant="contained" type="submit" className={classes.paddedButton} color="primary">Save Changes</Button>
-                        <Button component={Link} to="/RoadBookManager" className={classes.paddedButton} variant="contained" color="default" >Cancel</Button>
-                    </div>
-                </Grid>
-            </Grid>
-        </form>
+            </form>
+            <QuestionList></QuestionList>
+        </RoadBookEditorContext.Provider>
     )
 }
 

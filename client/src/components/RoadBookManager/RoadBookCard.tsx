@@ -14,7 +14,6 @@ export default function RoadBookCard(props: CardProps) {
     const { dispatch } = context;
 
     function handleDeleteClick(): void {
-        console.log('going to delete');
         fetch('http://localhost:4000/RoadBook/' + roadBook._id,
             {
                 method: 'DELETE'
