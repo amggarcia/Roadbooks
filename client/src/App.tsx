@@ -1,9 +1,9 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import NavBar from './Layout/NavBar';
+import NavBar from './components/Layout/NavBar';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import RoadBookManager from './RoadBookManager/RoadBookManager';
+import RoadBookManager from './components/RoadBookManager/RoadBookManager';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import { CssBaseline } from '@material-ui/core';
 

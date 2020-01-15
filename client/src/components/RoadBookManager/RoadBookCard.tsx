@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Button, Card, CardHeader, CardMedia, CardContent, CardActionArea, CardActions, Typography } from '@material-ui/core';
-import { IRoadBook } from '../../../shared/src/types/IRoadBook';
+import { IRoadBook } from '../../../../shared/src/types/IRoadBook';
 import { Link } from 'react-router-dom';
 import { RoadBookCardListContext } from './RoadBookCardList';
 

@@ -1,5 +1,5 @@
 import React, { useReducer, useEffect, FormEvent } from 'react';
-import { IRoadBook } from '../../../shared/src/types/IRoadBook';
+import { IRoadBook } from '../../../../shared/src/types/IRoadBook';
 import { Grid, TextField, Button, makeStyles, createStyles, Theme } from '@material-ui/core';
 import { useParams, Link, useHistory } from 'react-router-dom';
 

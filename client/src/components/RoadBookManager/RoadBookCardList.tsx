@@ -2,7 +2,7 @@ import React, { useState, useEffect, createContext, useReducer } from 'react';
 import { Toolbar, Button, InputBase, Grid } from '@material-ui/core';
 import { makeStyles, Theme, createStyles, fade } from '@material-ui/core/styles';
 import RoadBookCard from './RoadBookCard';
-import { IRoadBook } from '../../../shared/src/types/IRoadBook';
+import { IRoadBook } from '../../../../shared/src/types/IRoadBook';
 import { Link } from 'react-router-dom';
 
 type State = {
