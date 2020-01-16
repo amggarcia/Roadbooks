@@ -46,15 +46,7 @@ class QuestionController {
 
     public createQuestion = function (req: Request, res: Response, next: NextFunction) {
         var question: IQuestion = req.body;
-        model.create(question, (error: Error, question: IQuestion) => {
-            if (error)
-                genericHandleResult(error, question, req, res, next);
-            else {
-                question.Images.forEach(x => x.Question = question._id);
-                questionImageModel.insertMany(question.Images,
-                    (error: Error, questionImages: IQuestionImage[]) => genericHandleResult(error, question, req, res, next));
-            }
-        });
+        model.create(question, (error: Error, question: IQuestion) => genericHandleResult(error, question, req, res, next));
     }
 }
 

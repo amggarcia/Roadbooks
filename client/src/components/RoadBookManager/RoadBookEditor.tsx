@@ -10,7 +10,7 @@ type State = {
 }
 export type Action = {
     type: string,
-    payload: string | IRoadBook
+    payload?: any
 }
 
 interface RoadBookEditorProps {

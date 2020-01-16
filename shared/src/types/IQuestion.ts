@@ -5,7 +5,7 @@ import IQuestionImage from './IQuestionImage';
 export default interface IQuestion {
     _id: string;
     RoadBook: IRoadBook["_id"];
-    Type: IQuestionType["_id"];
+    Type: IQuestionType;
     Title: string;
     Description: string;
     Question: string;
